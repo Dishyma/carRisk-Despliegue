@@ -30,7 +30,19 @@ modelTree,model_rf,modelKnn,modelNN,modelSVM, labelencoder,variables,min_max_sca
 #data = pd.read_csv("carRisk-despliegue.csv")
 #data.head()
 
-#Se crea interfaz gráfica con streamlit para captura de los datos
+import streamlit as st
+
+st.title('Predicción de riesgo de coche')
+
+age = st.slider('Edad', min_value=18, max_value=50, value=20, step=1)
+cartype = st.selectbox('Tipo de coche', ["combi", "sport", "family", "minivan"])
+
+
+# Dataframe
+datos = [[age, cartype]]
+data = pd.DataFrame(datos, columns=['age', 'cartype']) #Dataframe with the same variable names
+
+st.write(data)
 
 #Se realiza la preparación debe ser igual al aprendizaje
 data_preparada=data.copy()
@@ -48,20 +60,6 @@ Y_fut = modelTree.predict(data_preparada)
 print(Y_fut)
 
 print(labelencoder.inverse_transform(Y_fut))
-
-import streamlit as st
-
-st.title('Predicción de riesgo de coche')
-
-age = st.slider('Edad', min_value=18, max_value=50, value=20, step=1)
-cartype = st.selectbox('Tipo de coche', ["combi", "sport", "family", "minivan"])
-
-
-# Dataframe
-datos = [[age, cartype]]
-data = pd.DataFrame(datos, columns=['age', 'cartype']) #Dataframe with the same variable names
-
-st.write(data)
 
 data['Tree']=labelencoder.inverse_transform(Y_fut)
 data.head()
