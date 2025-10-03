@@ -42,8 +42,6 @@ cartype = st.selectbox('Tipo de coche', ["combi", "sport", "family", "minivan"])
 datos = [[age, cartype]]
 data = pd.DataFrame(datos, columns=['age', 'cartype']) #Dataframe with the same variable names
 
-st.write(data)
-
 #Se realiza la preparación debe ser igual al aprendizaje
 data_preparada=data.copy()
 data_preparada = pd.get_dummies(data_preparada, columns=['cartype'], drop_first=False, dtype=int) #Despliegue siempre drop_first en false
